@@ -47,7 +47,7 @@ document.getElementById("google-login").addEventListener("click", async () => {
       // New user - not signed up properly
       await signOut(auth);
       alert("Please complete your sign-up first.");
-      window.location.href = "../public/html/signup.html";
+      window.location.href = "../html/signup.html";
       return;
     }
 
@@ -57,7 +57,7 @@ document.getElementById("google-login").addEventListener("click", async () => {
     });
 
     // 4. Redirect to dashboard with welcome message
-    window.location.href = `../public/html/dashboard.html?welcome=${encodeURIComponent(user.displayName || 'User')}`;
+    window.location.href = `../html/dashboard.html?welcome=${encodeURIComponent(user.displayName || 'User')}`;
     
   } catch (error) {
     console.error("Login Error:", {
