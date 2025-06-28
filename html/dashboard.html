@@ -1,0 +1,125 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BetterTasks Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard">
+    <section class="sidebar">
+        <ul>
+            <li class="logo" style="--bg:#222;">
+                <a href="#">
+                    <div class="icon" id="menuToggle"><ion-icon name="menu-outline"></ion-icon></div>
+                    <div class="text">Daily.com</div>
+                </a>
+            </li>
+            <div class="Menulist">
+                <li style="--bg:goldenrod;" class="active">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
+                        <div class="text">Home</div>
+                    </a>
+                </li>
+                <li style="--bg:goldenrod;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="notifications-outline"></ion-icon></div>
+                        <div class="text">Notifications</div>
+                    </a>
+                </li>
+                <li style="--bg:goldenrod;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="calendar-outline"></ion-icon></div>
+                        <div class="text">Calendar</div>
+                    </a>
+                </li>
+                <li style="--bg:goldenrod;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                        <div class="text">Analytics</div>
+                    </a>
+                </li>
+            </div>
+
+            <div class="bottom">
+                <li style="--bg:goldenrod;">
+                    <a href="#">
+                        <div class="icon"><ion-icon name="log-out-outline"></ion-icon></div>
+                        <div class="text">Sign Out</div>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </section>
+
+    <main class="content">
+      <header class="welcome">
+        <h1>Good Morning, Pristia!</h1>
+        <p>What do you plan to do today?</p>
+      </header>
+
+      <section class="weather-container">
+        <section class="weather-details">
+          <h3>Weather Today 🌤️</h3>
+          <p class="temperature">22°C</p>
+          <p class="description">Partly cloudy with light breeze</p>
+        </section>
+      
+        <section class="outfit-recommendation">
+          <h3>Outfit Recommendation 👕</h3>
+          <p>Light jacket, jeans, and sneakers</p>
+        </section>
+      </section>
+      
+
+      <section class="main-body">
+        <section class="task-section">
+    
+            <div class="task-list">
+            
+            <div class="task-header">
+                <h2>Today's Tasks</h2>
+                <div>
+                    <button>AI Assist</button>
+                </div>
+            </div>
+
+              <label class="task"><input type="checkbox"> Upload dribbble shot</label>
+              <div class="task-actions">
+                <button class="btn-finish">Finish</button>
+                <button class="btn-add">+ Add Task</button>
+              </div>
+            </div>
+          </section>
+    
+          <section class="chat-panel">
+            <div class="chat-header">
+              <h3>AI Assist ✨</h3>
+            </div>
+            <div class="chat-body">
+              <p class="greeting">Hi, Pristia 👋</p>
+              <p class="prompt">How can I help you?</p>
+              <div class="suggestions">
+                <button class="suggestion">Can you help me with my first task?</button>
+                <button class="suggestion">Create a template for a product design doc</button>
+                <button class="suggestion">What is the SQL query for sorting by date?</button>
+              </div>
+            </div>
+            <div class="chat-input">
+              <input type="text" placeholder="Type your question here...">
+              <button>Send</button>
+            </div>
+          </section>
+        </section>
+    </main>
+  </div>
+
+  <script src="../js/dashboard.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

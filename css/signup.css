@@ -3,7 +3,7 @@
 /* Variables */
 :root {
     --text-color: #222;
-    --background-color: #f2fefe;
+    --background-color: #eaeaea;
     --primary-color: #222;
     --secondary-color: goldenrod;
     --accent-color: goldenrod;
@@ -15,7 +15,7 @@
     --login-border-radius: 12px;
     --login-input-radius: 8px;
     --login-button-color: goldenrod;
-    --login-bg-color: #f5f5f5;
+    --login-bg-color: #eaeaea;
     --border-radius: 12px;
     --button-radius: 8px;
 }
