@@ -47,7 +47,7 @@ document.getElementById("google").addEventListener("click", async () => {
     }, { merge: true }); // Merge instead of overwrite if doc exists
 
     // 3. Redirect to dashboard
-    window.location.href = "../html/dashboard.html";
+    window.location.href = "../public/html/dashboard.html";
 
   } catch (error) {
     // Enhanced error handling
