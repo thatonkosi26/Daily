@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BetterTasks Dashboard</title>
+  <title>Daily - Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/todoList.css">
 </head>
 <body>
   <div class="dashboard">
@@ -83,16 +84,30 @@
             
             <div class="task-header">
                 <h2>Today's Tasks</h2>
-                <div>
-                    <button>AI Assist</button>
-                </div>
             </div>
 
-              <label class="task"><input type="checkbox"> Upload dribbble shot</label>
-              <div class="task-actions">
-                <button class="btn-finish">Finish</button>
-                <button class="btn-add">+ Add Task</button>
+            <div class="container">
+              <div class="stats-container">
+                <div class="details">
+                  <h1>Today's Achievements</h1>
+                  <p>Keep It Up!</p>
+                  <div id="progressBar">
+                    <div id="progress"></div>
+                  </div>
+                </div>
+                <div class="stats-numbers">
+                  <p id="numbers">0 / 0</p>
+                </div>
               </div>
+
+              <form action="">
+                <input type="text" id="taskInput" placeholder="Write your task">
+                <button type="submit" id="btn-add">+</button>
+              </form>
+
+              <ul id="task-list"></ul>
+            </div>
+
             </div>
           </section>
     
@@ -119,6 +134,7 @@
   </div>
 
   <script src="../js/dashboard.js"></script>
+  <script src="../js/todoList.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
