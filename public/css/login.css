@@ -89,11 +89,11 @@ ul {
 /* Illustration Side */
 .auth-illustration-side {
     padding: 2rem;
-    position: relative;
+    /*position: relative;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: rgba(91, 155, 213, 0.05);
+    background-color: white;
 }
 
 .auth-illustration {
@@ -106,7 +106,7 @@ ul {
 
 .auth-illustration img {
     max-width: 100%;
-    height: auto;
+    height: 400px;
     object-fit: contain;
 }
 
