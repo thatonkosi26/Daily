@@ -87,7 +87,7 @@ body{
     transform: scale(1.05);
 }
 
-.home{
+#home{
     position: relative;
     width: 100%;
     height: 100vh;
@@ -160,3 +160,88 @@ body{
     height: 450px;
     transform: rotate(-45deg);
 }
+
+/* ABOUT SECTION */
+#about {
+    margin-top: 150px;
+}
+.about-1 {
+    margin: 30px;
+    padding: 5px;
+}
+
+.about-1 h1 {
+    text-align: center;
+    color: #222;
+    font-weight: bold;
+}
+
+.about-1 p {
+    text-align: center;
+    padding: 3px;
+    color: black;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin: 0 40px;
+}
+
+.about-item {
+    /*width: 25%;*/
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: white;
+    padding: 80px 30px;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.6);
+    transition: 0.4s;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.about-item i{
+    font-size: 43px;
+    margin: 0;
+}
+
+.about-item h3 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.about-item hr {
+    width: 46px;
+    height: 3px;
+    background-color: goldenrod;
+    margin: 0 auto;
+    border: none;
+}
+
+.about-item p {
+    margin-top: 20px;
+}
+
+.about-item:hover {
+    background-color: #222;
+    color: white;
+    scale: 1.05;
+}
+
+footer{
+    background: #222;
+    color: white;
+    padding: 20px;
+}
+
+footer p {
+    text-align: center;
+}
+/* END ABOUT SECTION */
+
+html {
+    scroll-behavior: smooth;
+}
+  
