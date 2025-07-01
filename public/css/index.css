@@ -162,9 +162,6 @@ body{
 }
 
 /* ABOUT SECTION */
-#about {
-    margin-top: 150px;
-}
 .about-1 {
     margin: 30px;
     padding: 5px;
@@ -174,6 +171,7 @@ body{
     text-align: center;
     color: #222;
     font-weight: bold;
+    margin-top: 150px;
 }
 
 .about-1 p {
@@ -240,6 +238,78 @@ footer p {
     text-align: center;
 }
 /* END ABOUT SECTION */
+
+/* FAQs SECTION */
+#faqs-section {
+    min-height: 100vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    /*font-size: 3rem;*/
+    margin-top: 150px;
+    /*margin: 2rem 0rem;*/
+}
+
+.faq {
+    max-width: 700px;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #222;
+    cursor: pointer;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*.question h3 {
+    font-size: 1.8rem;
+}*/
+
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.4s ease;
+}
+
+.answer p {
+    padding-top: 1rem;
+    line-height: 1.6;
+    /*font-size: 1.4rem;*/
+}
+
+.faq.active .answer {
+    max-height: 300px;
+    animation: fade 1s ease-in-out;
+}
+
+.faq.active svg {
+    transform: rotate(180deg);
+}
+
+svg {
+    transition: transform 0.5s ease-in;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+/* END FAQs SECTION */
 
 html {
     scroll-behavior: smooth;
