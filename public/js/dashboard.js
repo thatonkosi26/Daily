@@ -24,7 +24,9 @@ onAuthStateChanged(auth, async (user) => {
 
     if (userSnap.exists()) {
       const data = userSnap.data();
-      document.getElementById("welcome-message").textContent = `Hey, ${data.name || "User"}`;
+      console.log((data.name || "there").split(" ")[0]);
+      document.getElementById("welcome-message").textContent = `Hey, ${(data.name || "there").split(" ")[0]}`;
+      document.getElementById("display-name-on-chat").textContent = `Hey, ${(data.name || "there").split(" ")[0]}`;
     }
   } else {
     // Not logged in
