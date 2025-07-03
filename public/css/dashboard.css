@@ -5,6 +5,20 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* nice scroll bar */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(goldenrod);
+    border-radius: 50px;
+  }
+  /* end nicescrollbar */
+
 body {
     background: #eaeaea;
     height: 100vh;
@@ -15,19 +29,24 @@ body {
     min-height: 100vh;
 }
 
+/* SIDEBAR */
 .sidebar {
     position: fixed;
-    width: 80px;
-    height: 100vh;
+    left: 0;
+    top: 0;
+    width: 60px;
+    /*min-height: 910px;*/
     background: white;
-    transition: 0.5s;
-    padding-left: 18px;
+    border-radius: 20px;
+    transition: 0.4s;
+    padding-left: 0;
     overflow: hidden;
+    margin-right: 20px;
     z-index: 2;
 }
 
 .sidebar.active {
-    width: 300px;
+    width: 250px;
 }
 
 .sidebar ul {
@@ -68,7 +87,7 @@ body {
     justify-content: center;
     align-items: center;
     min-width: 60px;
-    padding-left: 10px;
+    padding-left: 0;
     height: 70px;
     font-size: 1.5em;
     color: #222;
@@ -91,13 +110,17 @@ body {
     color: #222;
 }
 
-.sidebar ul li.active a .text {
+/* .sidebar ul li.active a .text {
     color: goldenrod;
-}
+} */
 
 .sidebar ul li:hover a .icon,
 .sidebar ul li:hover a .text {
     color: var(--bg);
+}
+
+#menuToggle {
+    color: goldenrod;
 }
 
 .sidebar ul li.active a .icon::before {
@@ -113,6 +136,13 @@ body {
 .sidebar ul li:hover.active a .icon::before {
     background: white;
 }
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+/* END SIDEBAR */
 
 .bottom {
     position: absolute;
@@ -154,9 +184,9 @@ body {
 
 .main-body {
     display: flex;
+    flex-direction: row;
     gap: 20px;
     flex: 1;
-    min-height: 0;
 }
 
 .top-panel {
@@ -196,13 +226,16 @@ body {
 
 /* Enhanced Task List Styles */
 .task-section {
+    width: 70%;
+    position: relative;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 2;
     min-height: 100%;
-    background: #fff;
+    background: #222;
+    color: white;
     border-radius: 20px;
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.03);
 }
 
@@ -217,7 +250,7 @@ body {
 
 .task-header h2 {
     font-size: 1.4rem;
-    color: #222;
+    color: white;
 }
 
 .task-header button {
@@ -233,103 +266,4 @@ body {
 
 .task-header button:hover {
     background: goldenrod;
-}
-
-/* Chat Panel Styles */
-.chat-panel {
-    background: #fff;
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.03);
-    max-width: 320px;
-    flex: 0 0 320px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.chat-header h3 {
-    font-size: 1.2rem;
-    color: goldenrod;
-}
-
-.chat-body {
-    margin-top: 10px;
-    flex: 1;
-}
-
-.greeting {
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.prompt {
-    color: #555;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.suggestions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.suggestion {
-    background: #f5f5f5;
-    border: none;
-    padding: 12px 15px;
-    border-radius: 10px;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.9rem;
-}
-
-.suggestion:hover {
-    background: #eee;
-    transform: translateY(-1px);
-}
-
-.chat-input {
-    display: flex;
-    gap: 10px;
-    margin-top: auto;
-}
-
-.chat-input input {
-    flex-grow: 1;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 0.9rem;
-    transition: border 0.2s;
-}
-
-.chat-input input:focus {
-    outline: none;
-    border-color: goldenrod;
-}
-
-.chat-input button {
-    background: goldenrod;
-    color: white;
-    padding: 0 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.chat-input button:hover {
-    background: darkgoldenrod;
-    transform: translateY(-1px);
 }

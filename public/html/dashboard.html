@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../css/todoList.css">
   <link rel="stylesheet" href="../css/weather.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="dashboard">
@@ -23,7 +24,7 @@
             </li>
             <div class="Menulist">
                 <li style="--bg:goldenrod;" class="active">
-                    <a href="#">
+                    <a href="../html/dashboard.html">
                         <div class="icon"><ion-icon name="home-outline"></ion-icon></div>
                         <div class="text">Home</div>
                     </a>
@@ -35,7 +36,7 @@
                     </a>
                 </li>
                 <li style="--bg:goldenrod;">
-                    <a href="#">
+                    <a href="../html/calendar.html">
                         <div class="icon"><ion-icon name="calendar-outline"></ion-icon></div>
                         <div class="text">Calendar</div>
                     </a>
@@ -173,57 +174,53 @@
 
       <section class="main-body">
         <section class="task-section">
-    
-            <div class="task-list">
-            
+          <div class="task-list">
             <div class="task-header">
-                <h2>Today's Tasks</h2>
+              <h2>Today's Tasks</h2>
+              <div class="today-date">
+                <div class="event-day" id="event-day"></div>
+                <div class="event-date" id="event-date"></div>
+              </div>
             </div>
+      
 
-            <div class="container">
-              <div class="stats-container">
-                <div class="details">
-                  <h1>Today's Achievements</h1>
-                  <p>Keep It Up!</p>
-                  <div id="progressBar">
-                    <div id="progress"></div>
+
+              <div class="right">
+                <div class="events" id="task-list"></div>
+      
+                <!-- 🛠️ Add Task Form -->
+                <div class="add-event-wrapper" id="add-event-wrapper">
+                  <div class="add-event-header">
+                    <div class="title">Add Task</div>
+                    <i class="fas fa-times close" id="close-add-task"></i>
+                  </div>
+                  <div class="add-event-body">
+                    <div class="add-event-input">
+                      <input type="text" placeholder="Task Name" class="event-name" id="taskInput" />
+                    </div>
+                    <div class="add-event-input">
+                      <input type="time" placeholder="Start Time" class="event-time-from" id="taskTimeFrom" />
+                    </div>
+                    <div class="add-event-input">
+                      <input type="time" placeholder="End Time" class="event-time-to" id="taskTimeTo" />
+                    </div>
+                  </div>
+                  <div class="add-event-footer">
+                    <button class="add-event-btn" id="btn-add">Add Task</button>
                   </div>
                 </div>
-                <div class="stats-numbers">
-                  <p id="numbers">0 / 0</p>
-                </div>
+                <!-- End Add Task Form -->
+      
               </div>
+              <button class="add-event" id="open-add-task">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
 
-              <form action="">
-                <input type="text" id="taskInput" placeholder="Write your task">
-                <button type="submit" id="btn-add">+</button>
-              </form>
-
-              <ul id="task-list"></ul>
-            </div>
-
-            </div>
-          </section>
-    
-          <section class="chat-panel">
-            <div class="chat-header">
-              <h3>AI Assist ✨</h3>
-            </div>
-            <div class="chat-body">
-              <p class="greeting" id="display-name-on-chat">Hey</p>
-              <p class="prompt">How can I help you?</p>
-              <div class="suggestions">
-                <button class="suggestion">Can you help me with my first task?</button>
-                <button class="suggestion">Create a template for a product design doc</button>
-                <button class="suggestion">What is the SQL query for sorting by date?</button>
-              </div>
-            </div>
-            <div class="chat-input">
-              <input type="text" placeholder="Type your question here...">
-              <button>Send</button>
-            </div>
-          </section>
         </section>
+      </section>
+      
     </main>
   </div>
 

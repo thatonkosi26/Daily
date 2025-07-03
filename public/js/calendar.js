@@ -40,6 +40,9 @@ const addEventTitle = document.querySelector(".event-name");
 const addEventFrom = document.querySelector(".event-time-from");
 const addEventTo = document.querySelector(".event-time-to");
 const addEventSubmit = document.querySelector(".add-event-btn");
+const todayBtn = document.querySelector(".today-btn");
+const gotoBtn = document.querySelector(".goto-btn");
+const dateInput = document.querySelector(".date-input");
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -85,6 +88,42 @@ async function loadEventsFromFirestore(year, month) {
   console.log("📥 Events loaded from Firestore.");
 }
 
+// Calendar Initialization
+function initCalendar() {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const prevLastDay = new Date(year, month, 0);
+  const prevDays = prevLastDay.getDate();
+  const lastDate = lastDay.getDate();
+  const day = firstDay.getDay();
+  const nextDays = 7 - lastDay.getDay() - 1;
+
+  date.innerHTML = `${months[month]} ${year}`;
+  let days = "";
+
+  for (let x = day; x > 0; x--) {
+    days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
+  }
+
+  for (let i = 1; i <= lastDate; i++) {
+    let event = eventsArr.some(ev => ev.day === i && ev.month === month + 1 && ev.year === year);
+    let classes = "day";
+    if (i === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+      classes += " today active";
+      activeDay = i;
+      getActiveDay(i);
+      updateEvents(i);
+    }
+    if (event) classes += " event";
+    days += `<div class="${classes}">${i}</div>`;
+  }
+
+  for (let j = 1; j <= nextDays; j++) {
+    days += `<div class="day next-date">${j}</div>`;
+  }
+  daysContainer.innerHTML = days;
+  addListner();
+}
 
 function addListner() {
   const dayBtns = document.querySelectorAll(".day");
@@ -98,6 +137,44 @@ function addListner() {
       e.target.classList.add("active");
     });
   });
+}
+
+todayBtn.addEventListener("click", () => {
+  today = new Date();
+  month = today.getMonth();
+  year = today.getFullYear();
+  initCalendar();
+});
+
+dateInput.addEventListener("input", (e) => {
+  dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
+  if (dateInput.value.length === 2) {
+    dateInput.value += "/";
+  }
+  if (dateInput.value.length > 7) {
+    dateInput.value = dateInput.value.slice(0, 7);
+  }
+  if (e.inputType === "deleteContentBackward") {
+    if (dateInput.value.length === 3) {
+      dateInput.value = dateInput.value.slice(0, 2);
+    }
+  }
+});
+
+gotoBtn.addEventListener("click", gotoDate);
+
+function gotoDate() {
+  console.log("here");
+  const dateArr = dateInput.value.split("/");
+  if (dateArr.length === 2) {
+    if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
+      month = dateArr[0] - 1;
+      year = dateArr[1];
+      initCalendar();
+      return;
+    }
+  }
+  alert("Invalid Date");
 }
 
 function getActiveDay(date) {
@@ -169,45 +246,64 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function updateHeaderDate() {
-  const eventDay = document.getElementById("event-day");
-  const eventDate = document.getElementById("event-date");
+// Month Navigation
+prev.addEventListener("click", () => {
+  month--;
+  if (month < 0) {
+    month = 11;
+    year--;
+  }
+  getEventsAndInitCalendar();
+});
 
-  const today = new Date();
-  const dayName = today.toLocaleDateString("en-US", { weekday: 'short' }); // e.g. "Wed"
-  const dateNumber = today.getDate();
-  const monthName = today.toLocaleDateString("en-US", { month: 'long' }); // e.g. "July"
-  const year = today.getFullYear();
-
-  // Suffix logic: 1st, 2nd, 3rd, etc.
-  const getDateSuffix = (date) => {
-    if (date > 3 && date < 21) return 'th';
-    switch (date % 10) {
-      case 1: return 'st';
-      case 2: return 'nd';
-      case 3: return 'rd';
-      default: return 'th';
-    }
-  };
-
-  eventDay.textContent = dayName;
-  eventDate.textContent = `${dateNumber}${getDateSuffix(dateNumber)} ${monthName} ${year}`;
-}
-
-// Run the update function when the DOM is ready
-document.addEventListener("DOMContentLoaded", updateHeaderDate);
+next.addEventListener("click", () => {
+  month++;
+  if (month > 11) {
+    month = 0;
+    year++;
+  }
+  getEventsAndInitCalendar();
+});
 
 // Startup
 function getEventsAndInitCalendar() {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       await loadEventsFromFirestore(year, month + 1);
-      getActiveDay(activeDay);         // Set header for today
-      updateEvents(activeDay);         // Render events for today
+      initCalendar();
     } else {
       window.location.href = "../html/login.html";
     }
-  });  
+  });
 }
 
 getEventsAndInitCalendar();
+
+
+let menuToggle = document.getElementById('menuToggle');
+let sidebar = document.querySelector('.sidebar');
+let content = document.querySelector('.container'); // ✅ FIXED: define content
+
+menuToggle.onclick = function () {
+  menuToggle.classList.toggle('active');
+  sidebar.classList.toggle('active');
+
+  if (sidebar.classList.contains('active')) {
+    content.style.marginLeft = '300px';
+    content.style.width = "calc(100vw - 300px)";
+  } else {
+    content.style.marginLeft = '80px';
+    content.style.width = "calc(100vw - 80px)";
+  }
+};
+
+let Menulist = document.querySelectorAll('.Menulist li');
+
+function activeLink() {
+  Menulist.forEach((item) => item.classList.remove('active'));
+  this.classList.add('active');
+}
+
+Menulist.forEach((item) =>
+  item.addEventListener('click', activeLink)
+);
