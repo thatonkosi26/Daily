@@ -82,6 +82,12 @@ body {
     font-weight: 400;
     margin-left: 20px;
   }
+
+  .event-title.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  
   .events .event i {
     color: goldenrod;
     font-size: 0.5rem;

@@ -1,7 +1,7 @@
 // Firebase Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // Firebase Config
 const firebaseConfig = {
@@ -63,11 +63,20 @@ async function saveEventsToFirestore() {
   const user = auth.currentUser;
   if (!user) return;
   const uid = user.uid;
+
   for (const entry of eventsArr) {
     const dateKey = getDateKey(entry.day, entry.month, entry.year);
     const ref = doc(db, "users", uid, "tasks", dateKey);
-    await setDoc(ref, { events: entry.events });
+
+    if (entry.events.length > 0) {
+      // Update or create document if there are still tasks
+      await setDoc(ref, { events: entry.events });
+    } else {
+      // Delete document if no tasks remain
+      await deleteDoc(ref);
+    }
   }
+
   console.log("✅ Events saved to Firestore.");
 }
 
@@ -189,7 +198,17 @@ function updateEvents(date) {
   eventsArr.forEach(day => {
     if (day.day === date && day.month === month + 1 && day.year === year) {
       day.events.forEach(ev => {
-        events += `<div class="event"><div class="title"><i class="fas fa-circle"></i><h3 class="event-title">${ev.title}</h3></div><div class="event-time"><span class="event-time">${ev.time}</span></div></div>`;
+        const completedClass = ev.completed ? "completed" : "";
+        events += `
+          <div class="event">
+            <div class="title">
+              <i class="fas fa-circle"></i>
+              <h3 class="event-title ${completedClass}">${ev.title}</h3>
+            </div>
+            <div class="event-time">
+              <span class="event-time">${ev.time}</span>
+            </div>
+          </div>`;
       });
     }
   });
@@ -221,19 +240,87 @@ addEventSubmit.addEventListener("click", () => {
   saveEventsToFirestore();
 });
 
-// Delete Task
+// Delete Task modified
+// LEFT-CLICK: Toggle completed style and save
 eventsContainer.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("event")) return;
-  if (!confirm("Delete this task?")) return;
-  const title = e.target.querySelector(".event-title").innerText;
-  eventsArr.forEach((day, index) => {
+  const eventEl = e.target.closest(".event");
+  if (!eventEl) return;
+
+  const titleEl = eventEl.querySelector(".event-title");
+  if (!titleEl) return;
+
+  const title = titleEl.innerText;
+
+  // Toggle class
+  titleEl.classList.toggle("completed");
+
+  // Update eventsArr
+  eventsArr.forEach(day => {
     if (day.day === activeDay && day.month === month + 1 && day.year === year) {
-      day.events = day.events.filter(ev => ev.title !== title);
-      if (day.events.length === 0) eventsArr.splice(index, 1);
+      day.events.forEach(ev => {
+        if (ev.title === title) {
+          ev.completed = titleEl.classList.contains("completed");
+        }
+      });
     }
   });
-  updateEvents(activeDay);
+
+  // Save updated state to Firestore
   saveEventsToFirestore();
+});
+
+// RIGHT-CLICK: Show delete confirmation
+eventsContainer.addEventListener("contextmenu", async (e) => {
+  e.preventDefault(); // Prevent default browser context menu
+
+  const eventEl = e.target.closest(".event");
+  if (!eventEl) return;
+
+  const title = eventEl.querySelector(".event-title").innerText;
+
+  if (confirm(`Delete "${title}"?`)) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const uid = user.uid;
+    const dateKey = getDateKey(activeDay, month + 1, year);
+    const ref = doc(db, "users", uid, "tasks", dateKey);
+
+    // Update local eventsArr
+    const dayEntry = eventsArr.find(
+      (day) => day.day === activeDay && day.month === month + 1 && day.year === year
+    );
+    if (!dayEntry) return;
+
+    // Remove the task locally
+    dayEntry.events = dayEntry.events.filter((ev) => ev.title !== title);
+
+    if (dayEntry.events.length === 0) {
+      // If no more tasks for this day, remove the whole day and delete Firestore document
+      eventsArr = eventsArr.filter(
+        (day) =>
+          !(day.day === activeDay && day.month === month + 1 && day.year === year)
+      );
+      try {
+        await deleteDoc(ref);
+        console.log(`🗑️ Deleted Firestore doc for ${dateKey}`);
+      } catch (err) {
+        console.error("❌ Firestore delete failed", err);
+      }
+    } else {
+      // Otherwise, update the Firestore document
+      try {
+        await setDoc(ref, { events: dayEntry.events });
+        console.log(`✅ Updated Firestore doc for ${dateKey}`);
+      } catch (err) {
+        console.error("❌ Firestore update failed", err);
+      }
+    }
+
+    // Update UI
+    updateEvents(activeDay);
+    initCalendar();
+  }
 });
 
 // UI Interactions

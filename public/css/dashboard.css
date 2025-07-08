@@ -168,7 +168,9 @@ body {
     background-color: white;
     border-radius: 20px;
     padding: 10px 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);*/
+    border-bottom: 2px bold #222 ;
+    color: #222;
     z-index: -1;
 }
 
